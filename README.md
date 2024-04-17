@@ -25,6 +25,13 @@ SENTIMENT_NEGATIVE_THRESHOLD=-0.1
 
 - Python 3.10+
 
+Clone o código com:
+
+```bash
+git clone https://github.com/GusGBalbino/sentiment-analysis.git
+```
+
+
 Instale as dependências com:
 
 ```bash
@@ -40,11 +47,16 @@ python -m textblob.download_corpora
 ## Uso
 
 Para executar a análise, coloque os PDFs desejados na pasta especificada em `PDF_FOLDER_PATH` e execute o script Python. 
+
+```bash
+python main.py
+```
+
 Os resultados serão exibidos no console, incluindo a classificação de sentimentos para cada PDF e o tempo total de processamento.
 
 Os PDFs utilizados para teste foram extraídos de: https://ri.simpar.com.br/central-de-resultados/
 
 ## Features Futuras
 
-- Integrar o retorno dos dados ao PostgreSQL.
+- Integrar o retorno dos dados ao PostgreeSQL.
 - Integrar a funcionalidade a uma API para receber o PDF.
