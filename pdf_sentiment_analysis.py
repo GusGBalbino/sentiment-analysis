@@ -14,7 +14,11 @@ POSITIVE_THRESHOLD = float(os.getenv('SENTIMENT_POSITIVE_THRESHOLD'))
 NEGATIVE_THRESHOLD = float(os.getenv('SENTIMENT_NEGATIVE_THRESHOLD'))
 
 def preprocess_text(text):
-    #Contextualiza valores monetários e percentuais
+
+    '''
+    Contextualiza moedas e percentuais e remove caracteres desnecessários e sem uso do texto recolhido.
+    '''
+
     replacements = {
         'R\$': 'real ',
         '%': ' porcento ',
@@ -30,7 +34,6 @@ def preprocess_text(text):
     for key, value in replacements.items():
         text = text.replace(key, value)
     
-    #Remove caracteres isolados, espaços extras, símbolos e números sem uso
     text = re.sub(r'\b[a-zA-Z]\b', ' ', text)
     text = re.sub(r'[\+\-\*/\(\)\[\]\{\}\|\%\<\>\=]', ' ', text)
     text = re.sub(r'\b\d+\.?\d*\b', ' ', text)
@@ -39,6 +42,11 @@ def preprocess_text(text):
     return text
 
 def extract_text(pdf_path):
+
+    '''
+    Extração do texto dos PDFs.
+    '''
+
     text = ''
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
@@ -46,10 +54,20 @@ def extract_text(pdf_path):
     return preprocess_text(text)
 
 def analyze_sentiment(text):
+
+    '''
+    Análise do texto com TextBlob.
+    '''
+
     blob = TextBlob(text)
     return blob.sentiment.polarity
 
 def classify_sentiment(polarity):
+
+    '''
+    Análise da polaridade do texto
+    '''
+
     if polarity < NEGATIVE_THRESHOLD:
         return 'Negativo'
     elif polarity > POSITIVE_THRESHOLD:
@@ -58,12 +76,23 @@ def classify_sentiment(polarity):
         return 'Neutro'
 
 def process_pdf(pdf_path):
+
+    '''
+    Processamento do PDF, retornando os dados a respeito da análise.
+    '''
+
     text = extract_text(pdf_path)
     polarity = analyze_sentiment(text)
     sentiment = classify_sentiment(polarity)
     return {'Nome do arquivo': os.path.basename(pdf_path), 'Polaridade': polarity, 'Sentimento': sentiment}
 
 def analyze_pdf_folder(folder_path):
+
+    '''
+    Retorno do processo em forma de dicionários, categorizando os resultados.
+    Utilização do Process Pool para tornar o módulo mais rápido e eficiente.
+    '''
+
     results = {'Positivo': [], 'Neutro': [], 'Negativo': []}
     pdf_paths = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.pdf')]
     
