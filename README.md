@@ -23,6 +23,8 @@ SENTIMENT_NEGATIVE_THRESHOLD=-0.1
 
 ## Dependências
 
+- Python 3.10+
+
 Instale as dependências com:
 
 ```bash
@@ -41,3 +43,8 @@ Para executar a análise, coloque os PDFs desejados na pasta especificada em `PD
 Os resultados serão exibidos no console, incluindo a classificação de sentimentos para cada PDF e o tempo total de processamento.
 
 Os PDFs utilizados para teste foram extraídos de: https://ri.simpar.com.br/central-de-resultados/
+
+## Features Futuras
+
+- Integrar o retorno dos dados ao PostgreeSQL.
+- Integrar a funcionalidade a uma API para receber o PDF.
