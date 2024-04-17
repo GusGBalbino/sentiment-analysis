@@ -46,5 +46,5 @@ Os PDFs utilizados para teste foram extraídos de: https://ri.simpar.com.br/cent
 
 ## Features Futuras
 
-- Integrar o retorno dos dados ao PostgreeSQL.
+- Integrar o retorno dos dados ao PostgreSQL.
 - Integrar a funcionalidade a uma API para receber o PDF.
